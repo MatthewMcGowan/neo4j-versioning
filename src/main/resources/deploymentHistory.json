@@ -1,0 +1,34 @@
+{
+  "environments": [
+    {
+      "environmentName": "afltradev",
+      "scriptsRunSuccessfully": [
+        {
+          "majorVersion": 0,
+          "minorVersion": 0,
+          "patchVersion": 1
+        },
+        {
+          "majorVersion": 0,
+          "minorVersion": 1,
+          "patchVersion": 0
+        },
+        {
+          "majorVersion": 0,
+          "minorVersion": 1,
+          "patchVersion": 1
+        }
+      ]
+    },
+    {
+      "environmentName": "production",
+      "scriptsRunSuccessfully": [
+        {
+          "majorVersion": 0,
+          "minorVersion": 0,
+          "patchVersion": 1
+        }
+      ]
+    }
+  ]
+}
