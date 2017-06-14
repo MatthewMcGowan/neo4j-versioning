@@ -2,6 +2,7 @@
   "environments": [
     {
       "environmentName": "afltradev",
+      "environmentAddress" : "4 Privet Drive",
       "scriptsRunSuccessfully": [
         {
           "majorVersion": 0,
@@ -22,6 +23,7 @@
     },
     {
       "environmentName": "production",
+      "environmentAddress" : "http://localhost:7474",
       "scriptsRunSuccessfully": [
         {
           "majorVersion": 0,

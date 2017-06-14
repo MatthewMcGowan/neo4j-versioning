@@ -35,6 +35,7 @@ class deploymentHistoryParserSpec extends FunSpec {
                 |  "environments": [
                 |    {
                 |      "environmentName": "afltradev",
+                |      "environmentAddress" : "4 Privet Drive",
                 |      "scriptsRunSuccessfully": []
                 |    }
                 |  ]
@@ -42,7 +43,7 @@ class deploymentHistoryParserSpec extends FunSpec {
 
             val result = deploymentHistoryParser.parse(j)
 
-            assert(result.contains(Seq(Environment("afltradev", Seq()))))
+            assert(result.contains(Seq(Environment("afltradev", "4 Privet Drive", Seq()))))
           }
         }
       }
@@ -85,6 +86,7 @@ class deploymentHistoryParserSpec extends FunSpec {
                                 |  "environments": [
                                 |    {
                                 |      "environmentName": "afltradev",
+                                |      "environmentAddress" : "4 Privet Drive",
                                 |      "scriptsRunSuccessfully": [
                                 |        {
                                 |          "majorVersion": 0,

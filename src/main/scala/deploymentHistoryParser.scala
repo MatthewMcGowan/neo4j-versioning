@@ -21,6 +21,7 @@ object deploymentHistoryParser {
 
   implicit val environmentReads: Reads[Environment] = (
     (__ \ "environmentName").read[String] and
+    (__ \ "environmentAddress").read[String] and
     (__ \ "scriptsRunSuccessfully").read[Seq[Script]]
   )(Environment.apply _)
 
@@ -33,6 +34,9 @@ object deploymentHistoryParser {
       .flatMap(_.validate[Seq[Environment]].asOpt)
       // Order by version
       .map(opt => opt.map(
-        env => env.copy(env.name, env.history.sortBy(s => (s.majorVersion, s.minorVersion, s.patchVersion)))))
+        env => env.copy(
+          env.name,
+          env.address,
+          env.history.sortBy(s => (s.majorVersion, s.minorVersion, s.patchVersion)))))
   }
 }
