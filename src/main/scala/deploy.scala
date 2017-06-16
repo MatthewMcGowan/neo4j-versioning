@@ -1,4 +1,5 @@
 import com.typesafe.config.{Config, ConfigFactory, ConfigList, ConfigValue}
+import deploymentHistory.deploymentHistoryParser
 import model.{Environment, Script}
 
 import scala.annotation.tailrec

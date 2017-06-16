@@ -1,3 +1,4 @@
+import deploymentHistory.deploymentHistoryParser
 import model.{Environment, Script}
 import org.scalatest.FunSpec
 
