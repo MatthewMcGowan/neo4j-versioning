@@ -9,7 +9,7 @@ import scala.io.StdIn.readLine
 /**
   * Created by Matthew.McGowan on 13/06/2017.
   */
-object deploy extends App {
+object consoleDeploy extends App {
   val conf = ConfigFactory.load()
 
 
