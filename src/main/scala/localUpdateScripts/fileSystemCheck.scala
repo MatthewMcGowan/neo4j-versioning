@@ -9,7 +9,7 @@ import java.util.regex.Pattern
 object fileSystemCheck {
   private val firstLevelPattern = "^(\\d+\\.)x.x$".r.pattern
   private val secondLevelPattern = "^(\\d+\\.)(\\d+\\.)x$".r.pattern
-  private val thirdLevelPattern = "^(\\d+\\.)(\\d+\\.)(\\*|\\d+).cql$".r.pattern
+  private val thirdLevelPattern = "^(\\d+\\.)(\\d+\\.)(\\d+).cql$".r.pattern
 
   def checkDirectoryConformsToSchema(f: File): Boolean = {
     def getChildFiles(fs: Seq[File]): Seq[File] = fs.flatMap(listChildren)
