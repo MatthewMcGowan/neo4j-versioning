@@ -77,6 +77,4 @@ object consoleDeploy extends App {
 
     DeploymentCommand(env, deploymentType)
   }
-
-  type EnvironmentConfiguration = (String, String)
 }
