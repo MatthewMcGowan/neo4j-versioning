@@ -1,6 +1,8 @@
-import com.typesafe.config.{Config, ConfigFactory, ConfigList, ConfigValue}
+import java.io.File
+
+import com.typesafe.config.ConfigFactory
 import deploymentHistory.deploymentHistoryParser
-import model.{Environment, Script}
+import model.{DeploymentCommand, DeploymentType, Environment}
 
 import scala.annotation.tailrec
 import scala.io.Source.fromResource
@@ -22,18 +24,21 @@ object consoleDeploy extends App {
   }
   val history = historyOpt.get
 
-  printHistory(history)
+  val scriptDir = conf.getString("fileLocations.deploymentScripts")
+  if(!scriptManagement.fileSystemCheck.checkDirectoryConformsToSchema(new File(scriptDir))) {
+    println("Script directory does not conform to schema. Exiting")
+    System.exit(-1)
+  }
+
+  consoleHelper.printHistory(history)
 
   val env = getEnvironment(history)
 
+  getDeploymentCommand(env)
+
   print(env)
 
-  def printHistory(history: Seq[Environment]) = {
-    println("Environment Status:")
-    history.foreach(x =>
-      println(s"- ${x.name} at ${x.address} is at V${x.history.last.version}"))
-    println()
-  }
+
 
   @tailrec
   def getEnvironment(history: Seq[Environment]): Environment = {
@@ -49,16 +54,28 @@ object consoleDeploy extends App {
       e.get
   }
 
-  @tailrec
-  def askBoolean(question: String): Boolean = {
-    println(question)
-    val input = readLine().toLowerCase
-    if (input == "y") true
-    else if (input == "n") false
-    else {
-      println("Please respond either Y or N.")
-      askBoolean(question)
+  // TODO: Make all of this bit not shit
+  def getDeploymentCommand(env: Environment): DeploymentCommand = {
+    consoleHelper.printEnvironmentStatus(env)
+    println(s"Latest script version is ${}")
+    val question =  """Select an option:
+                      |0 - Upgrade to latest version
+                      |1 - Rebuild to latest version
+                      |2 - Select other version
+      """.stripMargin
+    val input = consoleHelper.askForValue(question, Seq("0", "1", "2"))
+
+    if(input == "3") {
+      println("Option not yet supported. Exiting.")
+      System.exit(-1)
     }
+
+    val deploymentType = input match {
+      case "0" => DeploymentType.Upgrade
+      case "1" => DeploymentType.Rebuild
+    }
+
+    DeploymentCommand(env, deploymentType)
   }
 
   type EnvironmentConfiguration = (String, String)
